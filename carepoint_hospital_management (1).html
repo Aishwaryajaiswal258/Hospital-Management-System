@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CarePoint | Hospital Management System</title>
+<style>
+:root{--navy:#15324b;--teal:#13a89e;--mint:#e9f8f5;--bg:#f4f7fb;--text:#203246;--muted:#7c8b9b;--line:#e6ecf2;--white:#fff;--red:#e45f68;--amber:#efa93a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text)}button,input,select{font:inherit}button{cursor:pointer}
+.app{display:flex;min-height:100vh}.sidebar{width:245px;background:var(--navy);color:#dce7ef;padding:24px 16px;display:flex;flex-direction:column;flex-shrink:0}.brand{display:flex;align-items:center;gap:11px;padding:0 10px 30px;font-weight:800;font-size:20px;color:#fff}.logo{width:38px;height:38px;border-radius:12px;background:var(--teal);display:grid;place-items:center;color:#fff;font-size:25px;font-weight:700}.nav-label{font-size:10px;letter-spacing:1.5px;color:#8fa5b6;padding:14px 12px 8px}.nav button{border:0;background:transparent;color:#c4d2dd;width:100%;text-align:left;padding:12px;border-radius:10px;margin:3px 0;display:flex;gap:13px;align-items:center;font-size:13px}.nav button.active,.nav button:hover{background:#24465f;color:#fff}.nav .ico{width:20px;text-align:center;font-size:17px}.sidebar-foot{margin-top:auto;background:#20445c;padding:14px;border-radius:12px;font-size:12px;line-height:1.5}.sidebar-foot strong{color:white;display:block;margin-bottom:5px}
+.main{min-width:0;flex:1}.topbar{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 32px;gap:18px}.crumb{font-size:12px;color:var(--muted)}.crumb strong{color:var(--text);font-size:15px;display:block;margin-top:4px}.top-actions{display:flex;align-items:center;gap:14px}.search{position:relative}.search input{width:230px;padding:10px 13px 10px 36px;border:1px solid var(--line);border-radius:10px;outline:none;background:#fafcfe}.search span{position:absolute;left:12px;top:9px;color:var(--muted)}.avatar{width:38px;height:38px;border-radius:50%;background:#d7f2ed;color:#168e84;display:grid;place-items:center;font-weight:800;font-size:12px}.content{padding:28px 32px;max-width:1500px;margin:auto}.welcome{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}.welcome h1{font-size:25px;margin:0 0 7px;letter-spacing:-.5px}.welcome p{margin:0;color:var(--muted);font-size:13px}.primary{background:var(--teal);border:0;color:#fff;border-radius:9px;padding:11px 15px;font-size:13px;font-weight:700;box-shadow:0 4px 10px #13a89e20}.primary:hover{background:#0d958c}.secondary{background:white;border:1px solid var(--line);color:var(--text);border-radius:9px;padding:10px 13px;font-size:12px;font-weight:600}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:22px}.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:20px;min-width:0}.stat-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px}.stat-icon{height:39px;width:39px;border-radius:12px;background:var(--mint);display:grid;place-items:center;font-size:19px}.stat:nth-child(2) .stat-icon{background:#eef2ff}.stat:nth-child(3) .stat-icon{background:#fff4df}.stat:nth-child(4) .stat-icon{background:#fff0f0}.stat h2{font-size:27px;margin:15px 0 7px;letter-spacing:-.7px}.change{font-size:11px;color:#14998c}.change span{color:var(--muted);margin-left:4px}.layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(300px,1fr);gap:20px}.panel{background:#fff;border:1px solid var(--line);border-radius:15px;margin-bottom:20px;overflow:hidden}.panel-head{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;border-bottom:1px solid var(--line);gap:10px}.panel-head h3{font-size:15px;margin:0}.panel-head p{font-size:11px;color:var(--muted);margin:5px 0 0}.panel-body{padding:20px 22px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;white-space:nowrap}th{text-align:left;background:#fbfcfe;color:var(--muted);font-weight:600;font-size:10px;letter-spacing:.3px;padding:13px 20px}td{padding:14px 20px;border-bottom:1px solid #edf1f5;font-size:12px}tbody tr:last-child td{border-bottom:0}.patient{display:flex;align-items:center;gap:10px}.mini-avatar{width:32px;height:32px;border-radius:10px;background:#e5f3f8;color:#477f93;display:grid;place-items:center;font-size:10px;font-weight:800}.patient strong{display:block;font-size:12px}.patient small{display:block;color:var(--muted);margin-top:4px;font-size:10px}.status{display:inline-block;padding:5px 8px;border-radius:6px;font-size:10px;font-weight:700}.status.confirmed,.status.paid,.status.active{background:#e5f7f1;color:#168b71}.status.pending{background:#fff4df;color:#b67b14}.status.cancelled,.status.overdue{background:#fff0f0;color:#d04c58}.status.inprogress{background:#edf2ff;color:#5b6fcb}.appointment{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid #edf1f5}.appointment:last-child{border-bottom:0;padding-bottom:0}.time{width:52px;flex-shrink:0;color:var(--muted);font-size:11px;padding-top:3px}.appt-mark{width:3px;border-radius:3px;background:var(--teal);align-self:stretch}.appt-info{flex:1}.appt-info strong{font-size:12px;display:block}.appt-info p{font-size:11px;color:var(--muted);margin:5px 0}.doctor-chip{font-size:10px;color:#168b83;background:#e9f8f5;padding:5px 7px;border-radius:6px;display:inline-block}.bar-row{display:grid;grid-template-columns:90px 1fr 35px;gap:12px;align-items:center;margin:16px 0;font-size:11px}.bar{height:8px;background:#edf2f6;border-radius:10px;overflow:hidden}.bar span{display:block;height:100%;background:var(--teal);border-radius:10px}.bar-row strong{font-size:11px;text-align:right}.section{display:none}.section.active{display:block}.section-title{display:flex;justify-content:space-between;align-items:center;margin:5px 0 20px}.section-title h1{font-size:24px;margin:0}.section-title p{font-size:12px;color:var(--muted);margin:6px 0 0}.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.toolbar input,.toolbar select,.field input,.field select{padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--text);outline:none;font-size:12px}.toolbar input{min-width:210px}.empty-note{padding:30px;text-align:center;color:var(--muted);font-size:13px}.modal-backdrop{position:fixed;inset:0;background:#102b40a6;display:none;align-items:center;justify-content:center;padding:20px;z-index:5}.modal-backdrop.open{display:flex}.modal{width:min(540px,100%);background:#fff;border-radius:16px;box-shadow:0 25px 70px #0003;overflow:hidden}.modal-head{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.modal-head h2{font-size:17px;margin:0}.close{border:0;background:#f1f4f7;border-radius:8px;width:30px;height:30px;font-size:18px}.modal-content{padding:22px 24px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:11px;color:#607183;font-weight:700}.field input,.field select{width:100%;font-size:13px;padding:11px}.modal-actions{display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid var(--line)}.toast{position:fixed;bottom:24px;right:24px;background:#15324b;color:white;padding:13px 18px;border-radius:10px;font-size:13px;box-shadow:0 8px 24px #0002;display:none;z-index:10}.toast.show{display:block}.mobile-menu{display:none}
+@media(max-width:1100px){.sidebar{width:210px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}.content{padding:24px}.topbar{padding:0 24px}}
+@media(max-width:700px){.sidebar{width:66px;padding:18px 8px}.brand{padding:0 5px 25px}.brand .brand-name,.nav-label,.nav button .nav-text,.sidebar-foot{display:none}.nav button{justify-content:center;padding:13px 8px}.nav .ico{font-size:19px}.topbar{padding:0 14px;height:65px}.search input{width:145px}.content{padding:20px 14px}.welcome{align-items:flex-start;flex-direction:column}.stats{gap:10px}.stat{padding:14px}.stat h2{font-size:23px}.stat-top{font-size:10px}.stat-icon{width:32px;height:32px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.section-title{align-items:flex-start;gap:12px;flex-direction:column}.panel-head,.panel-body{padding:16px}.table-wrap{margin:0 -16px}.top-actions{gap:8px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">+</div><span class="brand-name">CarePoint</span></div>
+  <div class="nav-label">WORKSPACE</div>
+  <nav class="nav" id="nav">
+    <button class="active" data-page="dashboard"><span class="ico">▦</span><span class="nav-text">Dashboard</span></button>
+    <button data-page="patients"><span class="ico">♙</span><span class="nav-text">Patients</span></button>
+    <button data-page="appointments"><span class="ico">▣</span><span class="nav-text">Appointments</span></button>
+    <button data-page="doctors"><span class="ico">⚕</span><span class="nav-text">Doctors & Staff</span></button>
+    <button data-page="billing"><span class="ico">▤</span><span class="nav-text">Billing</span></button>
+    <button data-page="reports"><span class="ico">▥</span><span class="nav-text">Reports</span></button>
+  </nav>
+  <div class="nav-label">SYSTEM</div>
+  <nav class="nav"><button id="settingsBtn"><span class="ico">⚙</span><span class="nav-text">Settings</span></button></nav>
+  <div class="sidebar-foot"><strong>CarePoint HMS</strong>Prototype workspace<br>Use demo data only. Not for clinical decisions.</div>
+</aside>
+<main class="main">
+<header class="topbar">
+  <div class="crumb">CarePoint / <strong id="pageCrumb">Dashboard overview</strong></div>
+  <div class="top-actions"><div class="search"><span>⌕</span><input id="globalSearch" placeholder="Search patients..." aria-label="Search patients"></div><div class="avatar">AD</div></div>
+</header>
+<div class="content">
+<section class="section active" id="dashboard">
+  <div class="welcome"><div><h1>Good morning, Admin 👋</h1><p>Here’s what’s happening at your hospital today.</p></div><button class="primary" id="addPatientTop">＋ Register patient</button></div>
+  <div class="stats">
+    <div class="stat"><div class="stat-top"><span>Total patients</span><span class="stat-icon">♙</span></div><h2 id="patientCount">1,284</h2><div class="change">↗ 8.2% <span>vs last month</span></div></div>
+    <div class="stat"><div class="stat-top"><span>Appointments today</span><span class="stat-icon">▣</span></div><h2 id="appointmentCount">42</h2><div class="change">↗ 4 new <span>since yesterday</span></div></div>
+    <div class="stat"><div class="stat-top"><span>Available doctors</span><span class="stat-icon">⚕</span></div><h2>18 <small style="font-size:12px;color:#8493a2;font-weight:500">/ 24</small></h2><div class="change">● 18 on duty <span>right now</span></div></div>
+    <div class="stat"><div class="stat-top"><span>Pending payments</span><span class="stat-icon">₹</span></div><h2 id="pendingAmount">₹24,500</h2><div style="font-size:11px;color:var(--muted)">Across 12 invoices</div></div>
+  </div>
+  <div class="layout">
+    <div>
+      <div class="panel"><div class="panel-head"><div><h3>Recent patients</h3><p>Latest patient registrations</p></div><button class="secondary" data-goto="patients">View all →</button></div>
+      <div class="table-wrap"><table><thead><tr><th>PATIENT</th><th> PATIENT ID</th><th>DEPARTMENT</th><th>STATUS</th></tr></thead><tbody id="recentPatients"></tbody></table></div></div>
+      <div class="panel"><div class="panel-head"><div><h3>Department overview</h3><p>Today's patient distribution</p></div><span class="status confirmed">Live demo</span></div><div class="panel-body">
+        <div class="bar-row"><span>Cardiology</span><div class="bar"><span style="width:78%"></span></div><strong>78</strong></div>
+        <div class="bar-row"><span>General</span><div class="bar"><span style="width:64%;background:#7c91df"></span></div><strong>64</strong></div>
+        <div class="bar-row"><span>Pediatrics</span><div class="bar"><span style="width:48%;background:#efa93a"></span></div><strong>48</strong></div>
+        <div class="bar-row"><span>Orthopedics</span><div class="bar"><span style="width:35%;background:#d77f9b"></span></div><strong>35</strong></div>
+      </div></div>
+    </div>
+    <div>
+      <div class="panel"><div class="panel-head"><div><h3>Today's appointments</h3><p>Your upcoming schedule</p></div><button class="secondary" data-goto="appointments">See all</button></div><div class="panel-body" id="todayAppointments"></div></div>
+      <div class="panel"><div class="panel-head"><div><h3>Quick actions</h3><p>Common tasks</p></div></div><div class="panel-body" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <button class="secondary" id="quickPatient" style="padding:16px 10px">＋<br><br>Register patient</button>
+        <button class="secondary" id="quickAppointment" style="padding:16px 10px">▣<br><br>New appointment</button>
+        <button class="secondary" data-goto="doctors" style="padding:16px 10px">⚕<br><br>View doctors</button>
+        <button class="secondary" data-goto="billing" style="padding:16px 10px">₹<br><br>Manage billing</button>
+      </div></div>
+    </div>
+  </div>
+</section>
+<section class="section" id="patients">
+  <div class="section-title"><div><h1>Patients</h1><p>Register and manage patient records.</p></div><button class="primary" id="addPatient">＋ Register patient</button></div>
+  <div class="panel"><div class="panel-head"><h3>Patient directory</h3><div class="toolbar"><input id="patientSearch" placeholder="Search name, ID, department"><select id="patientStatus"><option value="">All statuses</option><option>Active</option><option>Admitted</option><option>Discharged</option></select></div></div><div class="table-wrap"><table><thead><tr><th>PATIENT</th><th>ID</th><th>AGE / GENDER</th><th>DEPARTMENT</th><th>PHONE</th><th>STATUS</th></tr></thead><tbody id="patientTable"></tbody></table></div></div>
+</section>
+<section class="section" id="appointments">
+  <div class="section-title"><div><h1>Appointments</h1><p>Schedule and track patient visits.</p></div><button class="primary" id="addAppointment">＋ New appointment</button></div>
+  <div class="panel"><div class="panel-head"><h3>Appointment schedule</h3><div class="toolbar"><input id="appointmentSearch" placeholder="Search patient or doctor"><select id="appointmentFilter"><option value="">All appointments</option><option>Confirmed</option><option>Pending</option><option>Cancelled</option></select></div></div><div class="table-wrap"><table><thead><tr><th>TIME</th><th>PATIENT</th><th>DOCTOR</th><th>DEPARTMENT</th><th>STATUS</th></tr></thead><tbody id="appointmentTable"></tbody></table></div></div>
+</section>
+<section class="section" id="doctors">
+  <div class="section-title"><div><h1>Doctors & Staff</h1><p>Directory of care teams and availability.</p></div><button class="primary" id="addDoctor">＋ Add doctor</button></div>
+  <div class="stats" id="doctorCards"></div>
+</section>
+<section class="section" id="billing">
+  <div class="section-title"><div><h1>Billing & invoices</h1><p>Track invoices and payment status.</p></div><button class="primary" id="addInvoice">＋ Create invoice</button></div>
+  <div class="stats"><div class="stat"><div class="stat-top">Total billed <span class="stat-icon">₹</span></div><h2 id="billedTotal">₹86,400</h2><div class="change">This month</div></div><div class="stat"><div class="stat-top">Collected <span class="stat-icon">✓</span></div><h2 id="collectedTotal">₹61,900</h2><div class="change">Payments received</div></div><div class="stat"><div class="stat-top">Outstanding <span class="stat-icon">◷</span></div><h2 id="outstandingTotal">₹24,500</h2><div style="font-size:11px;color:var(--muted)">Awaiting payment</div></div><div class="stat"><div class="stat-top">Invoices <span class="stat-icon">▤</span></div><h2 id="invoiceCount">18</h2><div style="font-size:11px;color:var(--muted)">This month</div></div></div>
+  <div class="panel"><div class="panel-head"><h3>Recent invoices</h3><div class="toolbar"><input id="invoiceSearch" placeholder="Search invoice or patient"></div></div><div class="table-wrap"><table><thead><tr><th>INVOICE</th><th>PATIENT</th><th>DATE</th><th>AMOUNT</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="invoiceTable"></tbody></table></div></div>
+</section>
+<section class="section" id="reports">
+  <div class="section-title"><div><h1>Reports & analytics</h1><p>A quick snapshot of operational demo data.</p></div><button class="secondary" id="exportPatients">↓ Export patients CSV</button></div>
+  <div class="stats"><div class="stat"><div class="stat-top">Registered patients <span class="stat-icon">♙</span></div><h2 id="reportPatients">1,284</h2><div style="font-size:11px;color:var(--muted)">Including demo baseline</div></div><div class="stat"><div class="stat-top">Appointments <span class="stat-icon">▣</span></div><h2 id="reportAppointments">42</h2><div style="font-size:11px;color:var(--muted)">Today's schedule</div></div><div class="stat"><div class="stat-top">Doctors on duty <span class="stat-icon">⚕</span></div><h2>18</h2><div style="font-size:11px;color:var(--muted)">Across departments</div></div><div class="stat"><div class="stat-top">Open invoices <span class="stat-icon">₹</span></div><h2 id="reportInvoices">12</h2><div style="font-size:11px;color:var(--muted)">Require follow-up</div></div></div>
+  <div class="panel"><div class="panel-head"><h3>Department activity</h3><span class="crumb">Illustrative figures</span></div><div class="panel-body"><div class="bar-row"><span>Cardiology</span><div class="bar"><span style="width:78%"></span></div><strong>78</strong></div><div class="bar-row"><span>General</span><div class="bar"><span style="width:64%;background:#7c91df"></span></div><strong>64</strong></div><div class="bar-row"><span>Pediatrics</span><div class="bar"><span style="width:48%;background:#efa93a"></span></div><strong>48</strong></div><div class="bar-row"><span>Orthopedics</span><div class="bar"><span style="width:35%;background:#d77f9b"></span></div><strong>35</strong></div></div></div>
+</section>
+</div></main></div>
+<div class="modal-backdrop" id="modalBackdrop"><div class="modal"><div class="modal-head"><h2 id="modalTitle">Register patient</h2><button class="close" id="closeModal" aria-label="Close">×</button></div><form id="modalForm"><div class="modal-content"><div class="form-grid" id="modalFields"></div></div><div class="modal-actions"><button type="button" class="secondary" id="cancelModal">Cancel</button><button type="submit" class="primary">Save record</button></div></form></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const patients=[
+{id:'PT-1024',name:'Olivia Rhye',email:'olivia.r@example.com',age:29,gender:'Female',dept:'Cardiology',phone:'+91 98765 43210',status:'Active',color:'#e5f3f8'},
+{id:'PT-1023',name:'Phoenix Baker',email:'phoenix.b@example.com',age:41,gender:'Male',dept:'General',phone:'+91 98765 43211',status:'Admitted',color:'#fce9e7'},
+{id:'PT-1022',name:'Lana Steiner',email:'lana.s@example.com',age:35,gender:'Female',dept:'Pediatrics',phone:'+91 98765 43212',status:'Active',color:'#f4eaff'},
+{id:'PT-1021',name:'Demi Wilkinson',email:'demi.w@example.com',age:52,gender:'Female',dept:'Orthopedics',phone:'+91 98765 43213',status:'Discharged',color:'#fff0d9'},
+{id:'PT-1020',name:'Candice Wu',email:'candice.w@example.com',age:24,gender:'Female',dept:'Neurology',phone:'+91 98765 43214',status:'Active',color:'#e9f8f5'}
+];
+const appointments=[
+{time:'09:00 AM',patient:'Olivia Rhye',doctor:'Dr. Sarah Chen',dept:'Cardiology',status:'Confirmed'},
+{time:'09:30 AM',patient:'Phoenix Baker',doctor:'Dr. James Wilson',dept:'General',status:'Confirmed'},
+{time:'10:15 AM',patient:'Lana Steiner',doctor:'Dr. Priya Shah',dept:'Pediatrics',status:'Pending'},
+{time:'11:00 AM',patient:'Demi Wilkinson',doctor:'Dr. Michael Lee',dept:'Orthopedics',status:'Confirmed'},
+{time:'11:45 AM',patient:'Candice Wu',doctor:'Dr. Sarah Chen',dept:'Neurology',status:'Pending'}
+];
+const doctors=[
+{name:'Dr. Sarah Chen',dept:'Cardiology',exp:'12 years',status:'Available',initials:'SC'},
+{name:'Dr. James Wilson',dept:'General Medicine',exp:'9 years',status:'Available',initials:'JW'},
+{name:'Dr. Priya Shah',dept:'Pediatrics',exp:'8 years',status:'In consultation',initials:'PS'},
+{name:'Dr. Michael Lee',dept:'Orthopedics',exp:'15 years',status:'Available',initials:'ML'},
+{name:'Dr. Ananya Rao',dept:'Neurology',exp:'11 years',status:'Off duty',initials:'AR'},
+{name:'Dr. David Kim',dept:'Dermatology',exp:'7 years',status:'Available',initials:'DK'}
+];
+let invoices=[
+{id:'INV-2401',patient:'Olivia Rhye',date:'29 Oct 2026',amount:4500,status:'Paid'},
+{id:'INV-2402',patient:'Phoenix Baker',date:'29 Oct 2026',amount:12000,status:'Pending'},
+{id:'INV-2403',patient:'Lana Steiner',date:'28 Oct 2026',amount:3500,status:'Paid'},
+{id:'INV-2404',patient:'Demi Wilkinson',date:'28 Oct 2026',amount:8000,status:'Overdue'},
+{id:'INV-2405',patient:'Candice Wu',date:'27 Oct 2026',amount:6500,status:'Pending'}
+];
+const money=n=>'₹'+Number(n).toLocaleString('en-IN');
+const initials=name=>name.split(' ').filter(Boolean).map(x=>x[0]).slice(0,2).join('').toUpperCase();
+const badge=s=>`<span class="status ${s.toLowerCase().replace(/\s/g,'')}">${s}</span>`;
+function renderPatients(){
+ const q=($('#patientSearch')?.value||$('#globalSearch').value).toLowerCase(),status=$('#patientStatus')?.value||'';
+ const filtered=patients.filter(p=>(`${p.name} ${p.id} ${p.dept} ${p.phone}`.toLowerCase().includes(q))&&(!status||p.status===status));
+ const row=p=>`<tr><td><div class="patient"><div class="mini-avatar" style="background:${p.color||'#e5f3f8'}">${initials(p.name)}</div><div><strong>${p.name}</strong><small>${p.email||'No email provided'}</small></div></div></td><td>${p.id}</td><td>${p.age} / ${p.gender}</td><td>${p.dept}</td><td>${p.phone}</td><td>${badge(p.status)}</td></tr>`;
+ $('#patientTable').innerHTML=filtered.map(row).join('')||'<tr><td colspan="6" class="empty-note">No patients match your search.</td></tr>';
+ $('#recentPatients').innerHTML=patients.slice(-5).reverse().map(p=>`<tr><td><div class="patient"><div class="mini-avatar">${initials(p.name)}</div><strong>${p.name}</strong></div></td><td>${p.id}</td><td>${p.dept}</td><td>${badge(p.status)}</td></tr>`).join('');
+ $('#patientCount').textContent=(1284+patients.length-5).toLocaleString('en-IN');
+ $('#reportPatients').textContent=(1284+patients.length-5).toLocaleString('en-IN');
+}
+function renderAppointments(){
+ const q=($('#appointmentSearch')?.value||'').toLowerCase(),f=$('#appointmentFilter')?.value||'';
+ const list=appointments.filter(a=>(`${a.patient} ${a.doctor} ${a.dept}`.toLowerCase().includes(q))&&(!f||a.status===f));
+ $('#appointmentTable').innerHTML=list.map(a=>`<tr><td>${a.time}</td><td><div class="patient"><div class="mini-avatar">${initials(a.patient)}</div><strong>${a.patient}</strong></div></td><td>${a.doctor}</td><td>${a.dept}</td><td>${badge(a.status)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty-note">No appointments found.</td></tr>';
+ $('#todayAppointments').innerHTML=appointments.slice(0,4).map(a=>`<div class="appointment"><div class="time">${a.time}</div><div class="appt-mark"></div><div class="appt-info"><strong>${a.patient}</strong><p>${a.doctor} · ${a.dept}</p><span class="doctor-chip">${a.status}</span></div></div>`).join('');
+ $('#appointmentCount').textContent=42+appointments.length-5;$('#reportAppointments').textContent=42+appointments.length-5;
+}
+function renderDoctors(){
+ $('#doctorCards').innerHTML=doctors.map(d=>`<div class="stat"><div style="display:flex;align-items:center;gap:12px"><div class="avatar" style="width:48px;height:48px;border-radius:14px">${d.initials}</div><div><strong style="font-size:13px">${d.name}</strong><div style="font-size:11px;color:var(--muted);margin-top:5px">${d.dept}</div></div></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px"><span style="font-size:11px;color:var(--muted)">${d.exp} experience</span>${badge(d.status)}</div></div>`).join('');
+}
+function renderInvoices(){
+ const q=($('#invoiceSearch')?.value||'').toLowerCase();
+ $('#invoiceTable').innerHTML=invoices.filter(i=>(`${i.id} ${i.patient}`.toLowerCase().includes(q))).map(i=>`<tr><td><strong>${i.id}</strong></td><td>${i.patient}</td><td>${i.date}</td><td><strong>${money(i.amount)}</strong></td><td>${badge(i.status)}</td><td>${i.status==='Paid'?'<span style="color:#168b71;font-size:11px">✓ Paid</span>':`<button class="secondary pay-btn" data-id="${i.id}">Mark paid</button>`}</td></tr>`).join('')||'<tr><td colspan="6" class="empty-note">No invoices found.</td></tr>';
+ const outstanding=invoices.filter(i=>i.status!=='Paid').reduce((s,i)=>s+i.amount,0),collected=invoices.filter(i=>i.status==='Paid').reduce((s,i)=>s+i.amount,0),total=invoices.reduce((s,i)=>s+i.amount,0);
+ $('#outstandingTotal').textContent=money(outstanding);$('#collectedTotal').textContent=money(collected);$('#billedTotal').textContent=money(total);$('#pendingAmount').textContent=money(outstanding);$('#invoiceCount').textContent=invoices.length;$('#reportInvoices').textContent=invoices.filter(i=>i.status!=='Paid').length;
+}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
+function go(page){$$('.section').forEach(s=>s.classList.toggle('active',s.id===page));$$('#nav button[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));const labels={dashboard:'Dashboard overview',patients:'Patient directory',appointments:'Appointment schedule',doctors:'Doctors & staff',billing:'Billing & invoices',reports:'Reports & analytics'};$('#pageCrumb').textContent=labels[page]||page; if(page==='patients')renderPatients();if(page==='appointments')renderAppointments();if(page==='doctors')renderDoctors();if(page==='billing')renderInvoices();if(page==='reports'){renderPatients();renderAppointments();renderInvoices()}}
+$('#nav').addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b)go(b.dataset.page)});
+$$('[data-goto]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.goto)));
+$('#globalSearch').addEventListener('input',()=>{go('patients');$('#patientSearch').value=$('#globalSearch').value;renderPatients()});
+$('#patientSearch').addEventListener('input',renderPatients);$('#patientStatus').addEventListener('change',renderPatients);
+$('#appointmentSearch').addEventListener('input',renderAppointments);$('#appointmentFilter').addEventListener('change',renderAppointments);$('#invoiceSearch').addEventListener('input',renderInvoices);
+function openModal(type){
+ const configs={
+ patient:{title:'Register new patient',fields:[['name','Full name','text',true],['age','Age','number',true],['gender','Gender','select',true,['Female','Male','Other']],['phone','Phone number','tel',true],['email','Email address','email',false],['dept','Department','select',true,['Cardiology','General','Pediatrics','Orthopedics','Neurology','Dermatology']],['status','Patient status','select',true,['Active','Admitted','Discharged']]]},
+ appointment:{title:'Schedule appointment',fields:[['patient','Patient name','text',true],['doctor','Doctor','select',true,doctors.map(d=>d.name)],['date','Appointment date','date',true],['time','Appointment time','time',true],['dept','Department','select',true,['Cardiology','General','Pediatrics','Orthopedics','Neurology','Dermatology']],['status','Status','select',true,['Confirmed','Pending','Cancelled']]]},
+ doctor:{title:'Add doctor',fields:[['name','Doctor name','text',true],['dept','Department','select',true,['Cardiology','General Medicine','Pediatrics','Orthopedics','Neurology','Dermatology']],['exp','Years of experience','number',true],['status','Availability','select',true,['Available','In consultation','Off duty']]]},
+ invoice:{title:'Create invoice',fields:[['patient','Patient name','text',true],['amount','Amount (INR)','number',true],['date','Invoice date','date',true],['status','Payment status','select',true,['Pending','Paid','Overdue']]]}
+ };
+ const c=configs[type];$('#modalTitle').textContent=c.title;$('#modalForm').dataset.type=type;
+ $('#modalFields').innerHTML=c.fields.map(f=>`<div class="field ${f[0]==='email'?'full':''}"><label for="f_${f[0]}">${f[1]}${f[3]?' *':''}</label>${f[2]==='select'?`<select id="f_${f[0]}" name="${f[0]}" ${f[3]?'required':''}>${f[4].map(v=>`<option>${v}</option>`).join('')}</select>`:`<input id="f_${f[0]}" name="${f[0]}" type="${f[2]}" ${f[3]?'required':''} ${f[0]==='age'||f[0]==='exp'||f[0]==='amount'?'min="0"':''} ${f[0]==='date'?'value="2026-10-29"':''}>`}</div>`).join('');
+ $('#modalBackdrop').classList.add('open');
+}
+function closeModal(){$('#modalBackdrop').classList.remove('open')}
+$('#addPatient').onclick=$('#addPatientTop').onclick=$('#quickPatient').onclick=()=>openModal('patient');
+$('#addAppointment').onclick=$('#quickAppointment').onclick=()=>openModal('appointment');
+$('#addDoctor').onclick=()=>openModal('doctor');$('#addInvoice').onclick=()=>openModal('invoice');
+$('#closeModal').onclick=$('#cancelModal').onclick=closeModal;
+$('#modalBackdrop').addEventListener('click',e=>{if(e.target===$('#modalBackdrop'))closeModal()});
+$('#modalForm').addEventListener('submit',e=>{
+ e.preventDefault();const type=e.currentTarget.dataset.type, data=Object.fromEntries(new FormData(e.currentTarget).entries());
+ if(type==='patient'){data.age=Number(data.age);data.id='PT-'+(1025+patients.length-5);data.color='#e9f8f5';patients.push(data);renderPatients();toast('Patient registered successfully');go('patients')}
+ if(type==='appointment'){const d=new Date(data.date+'T00:00:00');const time=data.time?new Date('2000-01-01T'+data.time).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}):'Time TBD';appointments.push({...data,time});renderAppointments();toast('Appointment scheduled');go('appointments')}
+ if(type==='doctor'){data.exp=data.exp+' years';data.initials=initials(data.name);doctors.push(data);renderDoctors();toast('Doctor added successfully');go('doctors')}
+ if(type==='invoice'){data.amount=Number(data.amount);data.id='INV-'+(2401+invoices.length);data.date=data.date?new Date(data.date+'T00:00:00').toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}):'29 Oct 2026';invoices.push(data);renderInvoices();toast('Invoice created successfully');go('billing')}
+ closeModal();e.currentTarget.reset();
+});
+$('#invoiceTable').addEventListener('click',e=>{const b=e.target.closest('.pay-btn');if(!b)return;const i=invoices.find(x=>x.id===b.dataset.id);if(i){i.status='Paid';renderInvoices();toast(i.id+' marked as paid')}});
+$('#exportPatients').onclick=()=>{const rows=[['Patient ID','Name','Email','Age','Gender','Department','Phone','Status'],...patients.map(p=>[p.id,p.name,p.email||'',p.age,p.gender,p.dept,p.phone,p.status])];const csv=rows.map(r=>r.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='carepoint-patients.csv';a.click();URL.revokeObjectURL(a.href);toast('Patient CSV exported')};
+$('#settingsBtn').onclick=()=>toast('Settings panel is not included in this prototype.');
+renderPatients();renderAppointments();renderDoctors();renderInvoices();
+</script>
+</body>
+</html>
